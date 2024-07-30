@@ -3,12 +3,14 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    const roles = [
-      { name: 'admin' },
-      { name: 'employee' }
-    ];
-
-    await queryInterface.bulkInsert('roles', roles, {});
+    await queryInterface.bulkInsert('roles', [
+      {
+        name: 'admin',
+      },
+      {
+        name: 'employee',
+      }
+    ], {});
   },
 
   async down(queryInterface, Sequelize) {
