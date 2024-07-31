@@ -2,10 +2,7 @@ const { DataTypes, Model } = require('sequelize');
 
 class User extends Model {
     static associate(models) {
-        this.belongsTo(models.Role, {
-            foreignKey: 'roleId',
-            as: 'role'
-        });
+        User.belongsTo(models.Role, { foreignKey: 'roleId', as: 'role' });
     }
 }
 
@@ -30,10 +27,12 @@ module.exports = (sequelize) => {
             allowNull: false
         },
         roleId: {
+            field: 'role_id',
             type: DataTypes.INTEGER,
             allowNull: false
         },
-        last_login_date: {
+        lastLoginDate: {
+            field: 'last_login_date',
             type: DataTypes.DATE,
             allowNull: true
         },
@@ -49,15 +48,18 @@ module.exports = (sequelize) => {
             type: DataTypes.STRING,
             allowNull: true
         },
-        date_of_birth: {
+        dateOfBirth: {
+            field: 'date_of_birth',
             type: DataTypes.DATE,
             allowNull: true
         },
-        created_at: {
+        createdAt: {
+            field: 'created_at',
             type: 'TIMESTAMP',
             allowNull: false
         },
-        updated_at: {
+        updatedAt: {
+            field: 'updated_at',
             type: 'TIMESTAMP',
             allowNull: true
         }
