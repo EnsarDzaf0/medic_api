@@ -5,7 +5,17 @@ const loginSchema = Joi.object({
     password: Joi.string().required()
 });
 
+const updateUserSchema = Joi.object({
+    name: Joi.string().optional(),
+    username: Joi.string().optional(),
+    orders: Joi.number().optional(),
+    image: Joi.string().optional(),
+    status: Joi.string().optional(),
+    dateOfBirth: Joi.date().optional()
+});
+
 
 module.exports = {
-    loginSchema
+    loginSchema,
+    updateUserSchema
 };

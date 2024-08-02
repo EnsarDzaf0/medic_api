@@ -1,12 +1,14 @@
 const express = require('express');
 const router = express.Router();
-const { login } = require('../controllers/user');
+const auth = require('../middlewares/auth');
+const upload = require('../config/spaces');
+const { login, getAllUsers, getUserById, updateUser, logout } = require('../controllers/user');
 
 router.post('/login', login);
-router.get('/users');
-router.get('/users/details/:id');
-router.post('/users/block/:id');
-router.post('logout');
-router.post('/register');
+router.get('/users', auth, getAllUsers);
+router.get('/users/details/:id', auth, getUserById);
+router.put('/users/block/:id', auth, updateUser);
+router.post('/logout', auth, logout);
+router.post('/register', auth, upload.single('image'));
 
 module.exports = router;

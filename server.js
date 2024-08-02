@@ -1,10 +1,8 @@
 const express = require('express');
 const cors = require('cors');
 const { sequelize, Sequelize } = require('./models');
-
 const port = process.env.PORT || 8000;
 const app = express();
-
 const userRoutes = require('./routes/user');
 
 app.use(express.json());
