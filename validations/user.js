@@ -14,8 +14,17 @@ const updateUserSchema = Joi.object({
     dateOfBirth: Joi.date().optional()
 });
 
+const registerUserSchema = Joi.object({
+    name: Joi.string().required(),
+    username: Joi.string().required(),
+    password: Joi.string().required(),
+    orders: Joi.number().optional(),
+    role: Joi.string().required(),
+    dateOfBirth: Joi.date().required()
+});
 
 module.exports = {
     loginSchema,
-    updateUserSchema
+    updateUserSchema,
+    registerUserSchema
 };

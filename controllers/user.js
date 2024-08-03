@@ -47,10 +47,21 @@ const logout = async (req, res) => {
     }
 };
 
+const register = async (req, res) => {
+    try {
+        const userData = JSON.parse(req.body.userData);
+        const user = await UserService.registerUser(userData, req.file);
+        return res.status(201).json(user);
+    } catch (error) {
+        return res.status(500).json({ message: error.message });
+    }
+};
+
 module.exports = {
     login,
     getAllUsers,
     getUserById,
     updateUser,
-    logout
+    logout,
+    register
 };

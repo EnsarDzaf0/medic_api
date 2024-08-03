@@ -2,7 +2,7 @@ const { User, Role } = require('../models/index');
 const { hashPassword, comparePasswords } = require('../utils/password');
 const jwt = require('jsonwebtoken');
 const tokenExpiration = process.env.JWT_Token_Expiration || '30min';
-const { loginSchema, updateUserSchema } = require('../validations/user');
+const { loginSchema, updateUserSchema, registerUserSchema } = require('../validations/user');
 
 class UserService {
     static async getUserByUsername(username) {
@@ -77,6 +77,36 @@ class UserService {
         return User.update(data, {
             where: {
                 id
+            }
+        });
+    }
+
+    static async registerUser(userData, file) {
+        const { error } = registerUserSchema.validate(userData);
+        if (error) {
+            throw new Error(error.message);
+        }
+        const user = await this.getUserByUsername(userData.username);
+        if (user) {
+            throw new Error('Username already exists');
+        }
+        const role = await this.getRoleByName(userData.role);
+        if (!role) {
+            throw new Error('Role not found');
+        }
+        const hashedPassword = await hashPassword(userData.password);
+        return User.create({
+            ...userData,
+            roleId: role.id,
+            password: hashedPassword,
+            image: file ? file.location : null
+        });
+    }
+
+    static async getRoleByName(name) {
+        return Role.findOne({
+            where: {
+                name
             }
         });
     }
