@@ -39,6 +39,7 @@ class UserService {
         }
 
         const token = jwt.sign({ id: user.id }, process.env.SECRET_KEY, { expiresIn: tokenExpiration });
+        await User.update({ lastLoginDate: new Date() }, {});
         return { user, token };
     }
 
