@@ -49,7 +49,8 @@ class UserService {
                 model: Role,
                 attributes: ['name'],
                 as: 'role'
-            }
+            },
+            order: [['updatedAt', 'DESC']]
         });
         return users;
     }
